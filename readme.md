@@ -6,9 +6,6 @@ Depending on QTS release (and glibc version), there is a git max release that ca
 
 This is for x86 QNAP.
 
-Inspired from an original work by Michael Huang
-https://sdhuang32.github.io/install-git-on-qts/
-
 ## Overview
 
 The process leverages a Docker container to create a consistent build environment. The main steps are as follows:
@@ -50,3 +47,58 @@ The process leverages a Docker container to create a consistent build environmen
    ```bash
    git clone <repository-url>
    cd <repository-directory>
+
+2. **Review and Update Configuration:**
+
+Open `docker-git-builder.sh` and adjust the configuration variables as needed:
+
+- **GIT_INSTALL_DIR:** Destination directory for Git installation (e.g., `/share/Public/toolchain/git`).
+- **GIT_VERSION:** The Git version to build (e.g., `2.45.3`).
+- **DOCKER_IMAGE:** The Docker image to be used for the build (e.g., `sdhuang32/c7-systemd`).
+
+3. **Run the Main Script:**
+
+Execute the script to start the build process:
+`./docker-git-builder.sh`
+
+The script will:
+- Create the destination directory if it does not exist.
+- Launch a Docker container and copy the build scripts into it.
+- Build and install Git inside the container.
+- Install the Git wrapper into the installation directory.
+- Clean up by stopping and removing the Docker container.
+
+## Configuration Details
+- **GIT_INSTALL_DIR:**
+The directory where Git will be installed (e.g., `/share/Public/toolchain/git`).
+
+- **GIT_VERSION:**
+The version of Git to build (e.g., `2.45.3`).
+
+- **DOCKER_IMAGE:**
+The Docker image used for building Git (e.g., `sdhuang32/c7-systemd`).
+
+Other internal variables (e.g., `BUILD_SCRIPT_NAME`, `CONTAINER_NAME`) are managed automatically by the script.
+
+## Git Wrapper
+The `git-wrapper` script is designed to ensure that Git runs with the proper environment by setting the following variables at runtime:
+- **GIT_TEMPLATE_DIR:** Points to the directory containing Git templates.
+- **GIT_EXEC_PATH:** Points to the directory containing Git's helper executables.
+This wrapper is copied into the Git installation directory and renamed to `git`. When you run Git, the wrapper dynamically sets these variables so that Git locates its resources correctly regardless of where the installation is moved.
+
+## Troubleshooting
+- **Docker Issues:**
+Ensure Docker is installed and that you have sufficient permissions to run Docker commands.
+
+- **Missing Files:**
+Verify that `build-git.sh`, `CentOS-Base.repo`, and `git-wrapper` exist in the repository root.
+
+- **Permission Errors:**
+Make sure you have write access to the destination directory (`GIT_INSTALL_DIR`).
+
+## Author
+MPS
+
+## Acknowledgements
+Inspired from an original work by Michael Huang
+https://sdhuang32.github.io/install-git-on-qts/
