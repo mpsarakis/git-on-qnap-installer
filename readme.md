@@ -4,6 +4,8 @@ This project provides a set of scripts to build and install a specified version 
 
 Depending on QTS release (and glibc version), there is a git max release that can be installed, so don't necessarily expect to be able to install the latest one... For instance, for QTS 5.2.3.3006, git v2.45.3 is the latest possible (still from Jan 2025, so I found that ok vs. the "real" latest v2.48.1)
 
+This is for x86 QNAP.
+
 Inspired from an original work by Michael Huang
 https://sdhuang32.github.io/install-git-on-qts/
 
