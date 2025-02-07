@@ -4,7 +4,7 @@
 #
 # Description:
 #   This script orchestrates the process of building and installing a specified
-#   version of Git into a designated toolchain directory using a Docker container
+#   version of Git into a designated destination directory using a Docker container
 #   as the build environment. This approach is useful when you want to ensure a
 #   consistent build environment or when the target system lacks the native
 #   build dependencies for Git.
@@ -31,7 +31,7 @@
 #   - DOCKER_IMAGE   : The Docker image to be used as the build environment.
 #
 # Process Overview:
-#   1. Validate the existence of the destination toolchain directory and create it if necessary.
+#   1. Validate the existence of the destination destination directory and create it if necessary.
 #   2. Verify that Docker is installed and accessible.
 #   3. Remove any existing Docker container with the designated name to avoid conflicts.
 #   4. Launch a Docker container in detached mode using the specified image.
@@ -86,9 +86,9 @@ CONTAINER_NAME="git-builder"
 ##########################
 echo "Starting Git build and installation process..."
 
-# Ensure that the toolchain installation directory exists.
+# Ensure that the destination installation directory exists.
 if [ ! -d "$GIT_INSTALL_DIR" ]; then
-    echo "Creating toolchain directory at $GIT_INSTALL_DIR..."
+    echo "Creating destination directory at $GIT_INSTALL_DIR..."
     mkdir -p "$GIT_INSTALL_DIR"
 fi
 

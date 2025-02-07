@@ -1,6 +1,6 @@
 # Git Build and Installation via Docker
 
-This project provides a set of scripts to build and install a specified version of Git into a custom toolchain directory using Docker. This solution is especially useful for systems that require a reproducible build environment or when native build dependencies are unavailable.
+This project provides a set of scripts to build and install a specified version of Git into a custom destination directory using Docker. This solution is especially useful for systems that require a reproducible build environment or when native build dependencies are unavailable.
 
 Depending on QTS release (and glibc version), there is a git max release that can be installed, so don't necessarily expect to be able to install the latest one... For instance, for QTS 5.2.3.3006, git v2.45.3 is the latest possible (still from Jan 2025, so I found that ok vs. the "real" latest v2.48.1)
 
@@ -20,10 +20,10 @@ The process leverages a Docker container to create a consistent build environmen
    The Git build script (`build-git.sh`) and a custom CentOS repository configuration (`CentOS-Base.repo`) are copied into the container.
    
 3. **Git Build Process:**  
-   Inside the container, the build script compiles and installs Git into the designated toolchain directory.
+   Inside the container, the build script compiles and installs Git into the designated destination directory.
    
 4. **Git Wrapper Installation:**  
-   A Git wrapper (`git-wrapper`) is installed into the toolchain directory. This wrapper sets environment variables (`GIT_TEMPLATE_DIR` and `GIT_EXEC_PATH`) to ensure Git locates its helper programs and template files correctly, making the installation relocatable.
+   A Git wrapper (`git-wrapper`) is installed into the destination directory. This wrapper sets environment variables (`GIT_TEMPLATE_DIR` and `GIT_EXEC_PATH`) to ensure Git locates its helper programs and template files correctly, making the installation relocatable.
    
 5. **Cleanup:**  
    The Docker container is stopped and removed after the build process completes.
