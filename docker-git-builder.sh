@@ -59,15 +59,14 @@ set -e  # Exit immediately if any command fails
 GIT_INSTALL_DIR="/share/Public/toolchain/git"
 
 # Define Git version to build.
-# Uncomment/comment the desired version based on your compatibility needs.
-#   2.45.3 is the latest compatible with glibc v2.17.
-#   QNAP is on glibc v2.21 but no container can be found with this version.
-#   Maybe it would help...
+#  2.45.3 is the latest version compatible with glibc v2.17.
+#  QNAP is on glibc v2.21 but I could not find any build container this version, so I stick to v2.17.
+#  GIT releases list can be found here:
+#  https://mirrors.edge.kernel.org/pub/software/scm/git/
 GIT_VERSION="2.45.3"
 
 # Docker image to be used for the build.
 # This image should contain the necessary tools and libraries for building Git.
-# See: https://sdhuang32.github.io/install-git-on-qts/
 DOCKER_IMAGE="sdhuang32/c7-systemd"
 
 ##########################
