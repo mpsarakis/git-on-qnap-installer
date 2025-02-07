@@ -1,0 +1,51 @@
+#!/bin/bash
+# ------------------------------------------------------------------------------
+# Git Wrapper Script
+#
+# Purpose:
+#   This wrapper script is used to run the installed Git binary with the proper
+#   environment variables set, ensuring that Git finds its helper executables
+#   and template files relative to its installation directory.
+#
+# How It Works:
+#   1. The script determines its own directory (the installation directory).
+#   2. It sets the environment variables GIT_TEMPLATE_DIR and GIT_EXEC_PATH
+#      temporarily for the Git process, using the 'env' command.
+#   3. The actual Git binary (located in the bin/ subdirectory) is then executed
+#      with these variables, and any command-line arguments are passed through.
+#
+# Expected Directory Layout:
+#   <install_dir>/
+#     ├── bin/               # Contains the Git executable (git)
+#     ├── libexec/git-core/  # Contains Git helper executables (e.g., git-remote-https)
+#     └── share/git-core/templates/  # Contains Git template files
+#
+# Usage:
+#   Place this wrapper script in the same directory as your Git installation.
+#   Ensure it is executable. When you run "git <command>", this wrapper will be
+#   invoked and will correctly set the environment variables for Git.
+#
+# Example:
+#   If your Git installation is in /share/Public/toolchain, then:
+#     - The Git binary should be at /share/Public/toolchain/bin/git
+#     - The helper executables at /share/Public/toolchain/libexec/git-core
+#     - The templates at /share/Public/toolchain/share/git-core/templates
+#
+# Author: MPS
+# Date: 07/02/2025
+# Version: 1.0
+# ------------------------------------------------------------------------------
+ 
+# Determine the directory where this script (wrapper) is located.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Use 'env' to set the required environment variables only for the Git process.
+# GIT_TEMPLATE_DIR: Tells Git where to find its repository templates.
+# GIT_EXEC_PATH:      Specifies the directory containing Git's helper executables.
+#
+# The exec command replaces the current process with the Git binary so that
+# these environment variables do not persist beyond the Git process.
+exec env \
+     GIT_TEMPLATE_DIR="${SCRIPT_DIR}/share/git-core/templates" \
+     GIT_EXEC_PATH="${SCRIPT_DIR}/libexec/git-core" \
+     "${SCRIPT_DIR}/bin/git" "$@"
