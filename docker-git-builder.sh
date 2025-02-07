@@ -42,6 +42,9 @@
 #   8. Stop and remove the Docker container.
 #   9. Install the Git wrapper by copying it from the host into the Git installation directory.
 #
+# Inspired from an original work by Michael Huang
+# https://sdhuang32.github.io/install-git-on-qts/
+#
 # Author: MPS
 # Date: 07/02/2025
 # Version: 1.0

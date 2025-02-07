@@ -2,6 +2,9 @@
 
 This project provides a set of scripts to build and install a specified version of Git into a custom toolchain directory using Docker. This solution is especially useful for systems that require a reproducible build environment or when native build dependencies are unavailable.
 
+Inspired from an original work by Michael Huang
+https://sdhuang32.github.io/install-git-on-qts/
+
 ## Overview
 
 The process leverages a Docker container to create a consistent build environment. The main steps are as follows:
